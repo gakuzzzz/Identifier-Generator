@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jp.t2v</groupId>
-  <artifactId>util.identify</artifactId>
+  <artifactId>t2v-util-identify</artifactId>
   <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <name>Identifier Generator</name>
   <description>pallarel identifier generator</description>
   <inceptionYear>2011</inceptionYear>
@@ -36,12 +36,11 @@
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-compiler</artifactId>
-      <version>2.9.0.RC3</version>
+      <version>2.9.0</version>
     </dependency>
   </dependencies>
 
   <build>
-    <finalName>t2v-util-identify</finalName>
     <sourceDirectory>src/main/scala</sourceDirectory>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
