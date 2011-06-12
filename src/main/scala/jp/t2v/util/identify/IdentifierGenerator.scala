@@ -29,19 +29,16 @@ class IdentifierGenerator private (elements: IdentifierElement[_]*) {
   }
 
   private def encode(current: Int, currentBitSize: Int, previous: Int, residualBitSize: Int, encoded: StringBuilder): (Int, Int) = {
-      encoded += table(((current << residualBitSize) | previous) & mask)
-      val used = bitPerChar - residualBitSize
-      encode(current >>> used, currentBitSize - used, encoded)
+    encoded += table(((current << residualBitSize) | previous) & mask)
+    val used = bitPerChar - residualBitSize
+    encode(current >>> used, currentBitSize - used, encoded)
   }
 
   @tailrec
   private def encode(bits: Int, size: Int, encoded: StringBuilder): (Int, Int) = {
-    if (size < bitPerChar) {
-      (bits, size)
-    } else {
-      encoded += table(bits & mask)
-      encode(bits >>> bitPerChar, size - bitPerChar, encoded)
-    }
+    if (size < bitPerChar) return (bits, size)
+    encoded += table(bits & mask)
+    encode(bits >>> bitPerChar, size - bitPerChar, encoded)
   }
 
 }
