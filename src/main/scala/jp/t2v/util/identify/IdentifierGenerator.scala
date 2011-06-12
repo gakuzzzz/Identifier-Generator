@@ -2,6 +2,7 @@ package jp.t2v.util.identify
 
 import collection.mutable.StringBuilder
 import annotation.tailrec
+import java.lang.{Byte => JByte}
 
 class IdentifierGenerator private (elements: IdentifierElement[_]*) {
 
@@ -20,11 +21,11 @@ class IdentifierGenerator private (elements: IdentifierElement[_]*) {
 
   private def encode(value: Any, previous: Int, residualBitSize: Int, encoded: StringBuilder): (Int, Int) = value match {
     case l: Long =>
-      val (r, s) = encode(l.toInt, 32, previous, residualBitSize, encoded)
-      encode((l >>> 32).toInt, 32, r, s, encoded)
-    case i: Int => encode(i, 32, previous, residualBitSize, encoded)
+      val (r, s) = encode(l.toInt, Integer.SIZE, previous, residualBitSize, encoded)
+      encode((l >>> 32).toInt, Integer.SIZE, r, s, encoded)
+    case i: Int => encode(i, Integer.SIZE, previous, residualBitSize, encoded)
     case a: Array[Byte] => a.foldLeft((previous, residualBitSize)) {
-      case ((r, s), v) => { encode(0xff & v, 8, r, s, encoded) }
+      case ((r, s), v) => { encode(0xff & v, JByte.SIZE, r, s, encoded) }
     }
   }
 
